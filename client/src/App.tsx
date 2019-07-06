@@ -1,8 +1,23 @@
-/* globals document */
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import Auth from './Pages/Auth/Auth';
 import Main from './Pages/Main/Main';
 
-export default function renderApp() {
-    ReactDOM.render(<Main />, document.getElementById('root'));
+
+class App extends Component {
+    public render() {
+        return (
+            <div>
+                <Router>
+                    <div>
+                        <Route path="/" exact={true} component={Main} />
+                        <Route path="/auth" component={Auth} />
+                    </div>
+                </Router>
+            </div>
+        );
+    }
 }
+
+export default App;
