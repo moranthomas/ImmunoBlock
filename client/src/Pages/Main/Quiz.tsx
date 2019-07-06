@@ -5,21 +5,57 @@ const QuizFrame = styled.div`
     padding: 0% 25%;
 `;
 
-interface QuizState {
+interface IQuizState {
+    quizAnswers: string[];
 }
-class Quiz extends Component<{}, QuizState> {
+class Quiz extends Component<{}, IQuizState> {
     /**
      * @ignore
      */
     constructor(props: any) {
         super(props);
-        this.state = {};
+        this.state = {
+            quizAnswers: ['0', '', '', '', '', '', '', ''],
+        };
+    }
+
+    public handleChange = (event: any) => {
+        const { quizAnswers } = this.state;
+        if (event.target.name === 'qA-0') {
+            quizAnswers[0] = event.target.value;
+        } else if (event.target.name === 'qA-1') {
+            quizAnswers[1] = event.target.value;
+        } else if (event.target.name === 'qA-2') {
+            quizAnswers[2] = event.target.value;
+        } else if (event.target.name === 'qA-3') {
+            quizAnswers[3] = event.target.value;
+        } else if (event.target.name === 'qA-4') {
+            quizAnswers[4] = event.target.value;
+        } else if (event.target.name === 'qA-5') {
+            quizAnswers[5] = event.target.value;
+        } else if (event.target.name === 'qA-6') {
+            quizAnswers[6] = event.target.value;
+        } else if (event.target.name === 'qA-7') {
+            quizAnswers[7] = event.target.value;
+        }
+        this.setState({ quizAnswers });
+    }
+
+    public handleSubmit = (event: any) => {
+        const { quizAnswers } = this.state;
+        const jsonResult = {
+            answers: quizAnswers,
+            date: new Date(),
+        };
+        alert('A name was submitted: ' + JSON.stringify(jsonResult));
+        event.preventDefault();
     }
 
     /**
      * @ignore
      */
     public render() {
+        const { quizAnswers } = this.state;
         return (
             <div>
                 <h1 className="title is-1">Welcome to the Quiz</h1>
@@ -54,117 +90,196 @@ class Quiz extends Component<{}, QuizState> {
                     bibendum ac aliquet vitae, congue lobortis mauris. Vivamus ut convallis odio. Ut quis lacinia
                     leo. Aliquam commodo accumsan lorem, vitae euismod quam rhoncus eu.</p>
                 <QuizFrame>
-                    <div className="field">
-                        <label className="label">
-                            Please select the autoimmune diseases you have been diagnosed with.
-                        </label>
-                        <div className="control">
-                            <div className="select">
-                                <select>
-                                    <option>Type 1 diabetes</option>
-                                    <option>Rheumatoid arthritis (RA)</option>
-                                    <option>Psoriasis/psoriatic arthritis</option>
-                                    <option>Multiple sclerosis</option>
-                                </select>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="field">
+                            <label className="label">
+                                1 - Please select the autoimmune diseases you have been diagnosed with.
+                            </label>
+                            <div className="control">
+                                <div className="select">
+                                    <select
+                                        name="qA-0"
+                                        onChange={this.handleChange}
+                                        value={quizAnswers[0]}
+                                        required={true}
+                                    >
+                                        <option value="0" disabled={true}>Select an option</option>
+                                        <option value="1">Type 1 diabetes</option>
+                                        <option value="2">Rheumatoid arthritis (RA)</option>
+                                        <option value="3">Psoriasis/psoriatic arthritis</option>
+                                        <option value="4">Multiple sclerosis</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <br />
+                        <br />
 
-                    <div className="field">
-                        <label className="label">
-                            At what age did you first seek medical advice for your symptoms?
-                        </label>
-                        <div className="control">
-                            <input className="input" type="number" />
+                        <div className="field">
+                            <label className="label">
+                                2 - At what age did you first seek medical advice for your symptoms?
+                            </label>
+                            <div className="control">
+                                <input
+                                    className="input"
+                                    type="text"
+                                    name="qA-1"
+                                    required={true}
+                                    value={quizAnswers[1]}
+                                    onChange={this.handleChange}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <br />
+                        <br />
 
-                    <div className="field">
-                        <label className="label">
-                            Was your diagnosis of an autoimmune disease confirmed by a specialist?
-                        </label>
-                        <div className="control">
-                            <label className="radio">
-                                <input type="radio" name="question" />
-                                Yes
+                        <div className="field">
+                            <label className="label">
+                                3 - Was your diagnosis of an autoimmune disease confirmed by a specialist?
+                            </label>
+                            <div className="control">
+                                <label className="radio">
+                                    <input
+                                        type="radio"
+                                        name="qA-2"
+                                        required={true}
+                                        value="1"
+                                        checked={this.state.quizAnswers[2] === '1'}
+                                        onChange={this.handleChange}
+                                    />
+                                    Yes
                                 </label>
-                            <label className="radio">
-                                <input type="radio" name="question" />
-                                No
+                                <label className="radio">
+                                    <input
+                                        type="radio"
+                                        name="qA-2"
+                                        value="2"
+                                        checked={this.state.quizAnswers[2] === '2'}
+                                        onChange={this.handleChange}
+                                    />
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div className="field">
+                            <label className="label">
+                                4 - At what age were you first diagnosed by a specialist?
                             </label>
+                            <div className="control">
+                            <input
+                                className="input"
+                                type="number"
+                                name="qA-3"
+                                required={true}
+                                value={quizAnswers[3]}
+                                onChange={this.handleChange}
+                            />
+                            </div>
                         </div>
-                    </div>
-                    <br />
+                        <br />
 
-                    <div className="field">
-                        <label className="label">At what age were you first diagnosed by a specialist?</label>
-                        <div className="control">
-                            <input className="input" type="number" />
-                        </div>
-                    </div>
-                    <br />
-
-                    <div className="field">
-                        <label className="label">How many doctors have you seen for your autoimmune disease?</label>
-                        <div className="control">
-                            <input className="input" type="number" />
-                        </div>
-                    </div>
-                    <br />
-
-                    <div className="field">
-                        <label className="label">
-                            How many doctors did you see before you were correctly diagnosed?
-                        </label>
-                        <div className="control">
-                            <input className="input" type="number" />
-                        </div>
-                    </div>
-                    <br />
-
-                    <div className="field">
-                        <label className="label">
-                            Do you have first degree relatives
-                            (mother, father, sibling, aunt, uncle, grandparent, grandchild) with an autoimmune disease?
-                        </label>
-                        <div className="control">
-                            <label className="radio">
-                                <input type="radio" name="question" />
-                                Yes
-                                                </label>
-                            <label className="radio">
-                                <input type="radio" name="question" />
-                                No
+                        <div className="field">
+                            <label className="label">
+                                5 - How many doctors have you seen for your autoimmune disease?
                             </label>
+                            <div className="control">
+                            <input
+                                className="input"
+                                type="number"
+                                name="qA-4"
+                                required={true}
+                                value={quizAnswers[4]}
+                                onChange={this.handleChange}
+                            />
+                            </div>
                         </div>
-                    </div>
-                    <br />
+                        <br />
 
-                    <div className="field">
-                        <label className="label">Do you currently smoke tobacco?</label>
-                        <div className="control">
-                            <label className="radio">
-                                <input type="radio" name="question" />
-                                Yes
-                                                </label>
-                            <label className="radio">
-                                <input type="radio" name="question" />
-                                No
+                        <div className="field">
+                            <label className="label">
+                                6 - How many doctors did you see before you were correctly diagnosed?
                             </label>
+                            <div className="control">
+                            <input
+                                className="input"
+                                type="number"
+                                name="qA-5"
+                                required={true}
+                                value={quizAnswers[5]}
+                                onChange={this.handleChange}
+                            />
+                            </div>
                         </div>
-                    </div>
-                    <br />
+                        <br />
 
-                    <div className="field is-grouped">
-                        <div className="control">
-                            <button className="button is-link">Submit</button>
+                        <div className="field">
+                            <label className="label">
+                                7 - Do you have first degree relatives
+                                (mother, father, sibling, aunt, uncle, grandparent, grandchild)
+                                with an autoimmune disease?
+                            </label>
+                            <div className="control">
+                                <label className="radio">
+                                    <input
+                                        type="radio"
+                                        name="qA-6"
+                                        required={true}
+                                        value="1"
+                                        checked={this.state.quizAnswers[6] === '1'}
+                                        onChange={this.handleChange}
+                                    />
+                                    Yes
+                                </label>
+                                <label className="radio">
+                                    <input
+                                        type="radio"
+                                        name="qA-6"
+                                        value="2"
+                                        checked={this.state.quizAnswers[6] === '2'}
+                                        onChange={this.handleChange}
+                                    />
+                                    No
+                                </label>
+                            </div>
                         </div>
-                        <div className="control">
-                            <button className="button is-text">Cancel</button>
+                        <br />
+
+                        <div className="field">
+                            <label className="label">
+                                8 - Do you currently smoke tobacco?
+                            </label>
+                            <div className="control">
+                            <label className="radio">
+                                    <input
+                                        type="radio"
+                                        name="qA-7"
+                                        required={true}
+                                        value="1"
+                                        checked={this.state.quizAnswers[7] === '1'}
+                                        onChange={this.handleChange}
+                                    />
+                                    Yes
+                                </label>
+                                <label className="radio">
+                                    <input
+                                        type="radio"
+                                        name="qA-7"
+                                        value="2"
+                                        checked={this.state.quizAnswers[7] === '2'}
+                                        onChange={this.handleChange}
+                                    />
+                                    No
+                                </label>
+                            </div>
                         </div>
-                    </div>
+                        <br />
+
+                        <div className="field is-grouped">
+                            <div className="control">
+                                <input type="submit" className="button is-primary" value="Submit" />
+                            </div>
+                        </div>
+                    </form>
                 </QuizFrame>
             </div>
         );
