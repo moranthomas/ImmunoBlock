@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Navbar from '../../Components/Navbar/Navbar';
 
 interface AuthState {
 }
@@ -16,7 +17,7 @@ class Auth extends Component<{}, AuthState> {
      */
     render() {
         return (
-            <p>Hello</p>
+            <Navbar />
         );
     }
 }
