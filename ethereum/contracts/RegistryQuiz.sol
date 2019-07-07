@@ -1,6 +1,6 @@
 pragma solidity ^0.5.7;
 
-import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
 contract RegistryQuiz is Ownable {
@@ -24,7 +24,7 @@ contract RegistryQuiz is Ownable {
      * by comparing the address in the did registry.
      */
     modifier onlyUser(string memory _did) {
-        require(users[_did].addr == msg.sender, "");
+        require(users[_did].addr == msg.sender, "Your are not the right user.");
         _;
     }
 
@@ -86,7 +86,7 @@ contract RegistryQuiz is Ownable {
      */
     function accessPatientQuiz(string memory _userDid, string memory _patientDid) public view returns (string memory) {
         string memory quizPath = quiz[_patientDid];
-        require(allowed[_userDid][quizPath] == true, "");
+        require(allowed[_userDid][quizPath] == true, "Access denied!");
         return quizPath;
     }
 }
