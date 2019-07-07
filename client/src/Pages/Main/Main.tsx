@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import truffleContract from 'truffle-contract';
-import SimpleStorageContract from '../../contracts/SimpleStorage.json';
-import getWeb3 from '../../utils/getWeb3';
 
 import Navbar from '../../Components/Navbar/Navbar';
 import './main.css';
