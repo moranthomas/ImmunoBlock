@@ -7,6 +7,7 @@ import getWeb3 from '../../utils/getWeb3';
 import Navbar from '../../Components/Navbar/Navbar';
 import './main.css';
 import Quiz from './Quiz';
+import BasicRadarChart from './Statistics';
 
 
 const MainContent = styled.div`
@@ -38,11 +39,13 @@ class Main extends Component<{}, IMainState> {
      */
     public render() {
         const { currentView } = this.state;
+        const pageContent = currentView === 'quiz' ? <Quiz />
+            : currentView === 'statistics' ? <BasicRadarChart /> : this.loadMainCards();
         return (
             <>
                 <Navbar />
                 <MainContent>
-                    {currentView === 'quiz' ? <Quiz /> : this.loadMainCards()}
+                    {pageContent}
                 </MainContent>
             </>
         );
@@ -53,8 +56,8 @@ class Main extends Component<{}, IMainState> {
             <table>
                 <tbody>
                     <tr>
-                        <td data-tag="quiz">
-                            <div className="card" data-tag="quiz" onClick={this.handleClick}>
+                        <td data-tag="quiz" onClick={this.handleClick}>
+                            <div className="card">
                                 <div className="card-image">
                                     <figure className="image is-4by3">
                                         <img
@@ -72,7 +75,7 @@ class Main extends Component<{}, IMainState> {
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td data-tag="statistics" onClick={this.handleClick}>
                             <div className="card">
                                 <div className="card-image">
                                     <figure className="image is-4by3">
