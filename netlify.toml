@@ -1,0 +1,5 @@
+[build]
+  base = "client"
+  command = "yarn build"
+  functions = "built-lambda"
+  publish = "build"
