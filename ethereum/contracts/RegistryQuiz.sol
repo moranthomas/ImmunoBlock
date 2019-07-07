@@ -9,7 +9,7 @@ contract RegistryQuiz is Ownable {
     event userAllowed(string userDid, string allowedDid);
 
     /**
-     * Role 0 - Admin; 1 - Normal User
+     * Role 0 - Admin; 1 - Normal User; 2 - Company
      */
     struct User {
         address addr;
@@ -29,11 +29,19 @@ contract RegistryQuiz is Ownable {
     }
 
     /**
+     * @dev Verifies if a user is signed.
+     */
+    function userExists(string memory _userDid) public view returns(bool) {
+        return users[_userDid].addr != address(0);
+    }
+
+    /**
      * @dev save msg.sender and uport did in order to be able
      * to verify if the user authenticity in future transactions.
      * By default it sets the role to one, the user role.
      */
     function signupUser(string memory _userDid) public {
+        require(users[_userDid].addr == address(0), "User already exists!");
         User memory newUser = User(msg.sender, 1);
         users[_userDid] = newUser;
         emit userSignedUp(_userDid, msg.sender);

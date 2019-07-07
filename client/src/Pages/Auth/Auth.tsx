@@ -17,7 +17,7 @@ class Auth extends Component<{}, AuthState> {
      */
     render() {
         return (
-            <Navbar />
+            <div>Hello</div>
         );
     }
 }

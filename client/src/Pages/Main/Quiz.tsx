@@ -1,22 +1,53 @@
+import Cryptr from 'cryptr';
+import ipfsClient from 'ipfs-http-client';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+
+const cryptr = new Cryptr('myTotalySecretKey');
+const ipfs = ipfsClient('localhost', '5001', { protocol: 'http' });
 const QuizFrame = styled.div`
     padding: 0% 25%;
 `;
 
+interface IQuizProps {
+    uport: any;
+    web3: any;
+    registryQuizContract: any;
+    userAccount: string;
+}
 interface IQuizState {
+    editing: boolean;
+    fakeDid: string;
     quizAnswers: string[];
 }
-class Quiz extends Component<{}, IQuizState> {
+class Quiz extends Component<IQuizProps, IQuizState> {
     /**
      * @ignore
      */
     constructor(props: any) {
         super(props);
         this.state = {
+            editing: false,
+            fakeDid: 'did:ethr:0x31486054a6ad2c0b685cd89ce0ba018e210d504b',
             quizAnswers: ['0', '', '', '', '', '', '', ''],
         };
+    }
+
+    public componentDidMount = () => {
+        const { registryQuizContract } = this.props;
+        const { fakeDid } = this.state;
+        registryQuizContract.methods.hasQuiz(fakeDid)
+            .call().then(async (has: boolean) => {
+                if (has === true) {
+                    const path = await registryQuizContract.methods.getQuiz(fakeDid).call();
+                    const quiz = await ipfs.cat(cryptr.decrypt(path));
+                    this.setState({
+                        editing: true,
+                        quizAnswers: JSON.parse(cryptr.decrypt(quiz.toString())).answers,
+                    });
+                }
+            });
     }
 
     public handleChange = (event: any) => {
@@ -42,12 +73,23 @@ class Quiz extends Component<{}, IQuizState> {
     }
 
     public handleSubmit = (event: any) => {
-        const { quizAnswers } = this.state;
+        const { web3, userAccount, uport, registryQuizContract } = this.props;
+        const { quizAnswers, fakeDid } = this.state;
         const jsonResult = {
             answers: quizAnswers,
             date: new Date(),
         };
-        alert('A name was submitted: ' + JSON.stringify(jsonResult));
+        // add content to ipfs
+        const content = ipfsClient.Buffer.from(cryptr.encrypt(JSON.stringify(jsonResult)));
+        ipfs.add(content).then((results: [{ path: string }]) => {
+            // save the content address in ethereum
+            registryQuizContract.methods.uploadQuiz(fakeDid, cryptr.encrypt(results[0].path))
+                .send({ from: userAccount })
+                .on('receipt', (receipt: any) => {
+                    // print a success message
+                })
+                .on('error', console.error);
+        });
         event.preventDefault();
     }
 
@@ -55,7 +97,7 @@ class Quiz extends Component<{}, IQuizState> {
      * @ignore
      */
     public render() {
-        const { quizAnswers } = this.state;
+        const { quizAnswers, editing } = this.state;
         return (
             <div>
                 <h1 className="title is-1">Welcome to the Quiz</h1>
@@ -90,6 +132,7 @@ class Quiz extends Component<{}, IQuizState> {
                     bibendum ac aliquet vitae, congue lobortis mauris. Vivamus ut convallis odio. Ut quis lacinia
                     leo. Aliquam commodo accumsan lorem, vitae euismod quam rhoncus eu.</p>
                 <QuizFrame>
+                    {editing === true ? this.editingMessage() : null}
                     <form onSubmit={this.handleSubmit}>
                         <div className="field">
                             <label className="label">
@@ -166,14 +209,14 @@ class Quiz extends Component<{}, IQuizState> {
                                 4 - At what age were you first diagnosed by a specialist?
                             </label>
                             <div className="control">
-                            <input
-                                className="input"
-                                type="number"
-                                name="qA-3"
-                                required={true}
-                                value={quizAnswers[3]}
-                                onChange={this.handleChange}
-                            />
+                                <input
+                                    className="input"
+                                    type="number"
+                                    name="qA-3"
+                                    required={true}
+                                    value={quizAnswers[3]}
+                                    onChange={this.handleChange}
+                                />
                             </div>
                         </div>
                         <br />
@@ -183,14 +226,14 @@ class Quiz extends Component<{}, IQuizState> {
                                 5 - How many doctors have you seen for your autoimmune disease?
                             </label>
                             <div className="control">
-                            <input
-                                className="input"
-                                type="number"
-                                name="qA-4"
-                                required={true}
-                                value={quizAnswers[4]}
-                                onChange={this.handleChange}
-                            />
+                                <input
+                                    className="input"
+                                    type="number"
+                                    name="qA-4"
+                                    required={true}
+                                    value={quizAnswers[4]}
+                                    onChange={this.handleChange}
+                                />
                             </div>
                         </div>
                         <br />
@@ -200,14 +243,14 @@ class Quiz extends Component<{}, IQuizState> {
                                 6 - How many doctors did you see before you were correctly diagnosed?
                             </label>
                             <div className="control">
-                            <input
-                                className="input"
-                                type="number"
-                                name="qA-5"
-                                required={true}
-                                value={quizAnswers[5]}
-                                onChange={this.handleChange}
-                            />
+                                <input
+                                    className="input"
+                                    type="number"
+                                    name="qA-5"
+                                    required={true}
+                                    value={quizAnswers[5]}
+                                    onChange={this.handleChange}
+                                />
                             </div>
                         </div>
                         <br />
@@ -249,7 +292,7 @@ class Quiz extends Component<{}, IQuizState> {
                                 8 - Do you currently smoke tobacco?
                             </label>
                             <div className="control">
-                            <label className="radio">
+                                <label className="radio">
                                     <input
                                         type="radio"
                                         name="qA-7"
@@ -282,6 +325,12 @@ class Quiz extends Component<{}, IQuizState> {
                     </form>
                 </QuizFrame>
             </div>
+        );
+    }
+
+    private editingMessage = () => {
+        return (
+            <p><strong>You are editing!</strong></p>
         );
     }
 }
