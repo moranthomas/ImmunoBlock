@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Cookies from 'universal-cookie';
 import Web3 from 'web3';
 
 import Navbar from '../../Components/Navbar/Navbar';
@@ -26,6 +27,7 @@ interface IMainState {
     loggedIn: boolean;
     userAccount: string;
     registryQuizContract: any;
+    cookies: Cookies;
 }
 class Main extends Component<{}, IMainState> {
     /**
@@ -33,14 +35,19 @@ class Main extends Component<{}, IMainState> {
      */
     constructor(props: any) {
         super(props);
+        const cookies = new Cookies();
         const uport = getUport();
-        // uport.loadState();
-        // const web3 = new Web3(uport.getProvider());
         const web3 = new Web3((window as any).ethereum);
-        (window as any).ethereum.enable();
+        let loggedIn = false;
+        uport.loadState();
+        if (cookies.get('did') !== undefined) {
+            (window as any).ethereum.enable();
+            loggedIn = true;
+        }
         this.state = {
+            cookies: new Cookies(),
             currentView: 'main',
-            loggedIn: true,
+            loggedIn,
             registryQuizContract: undefined as any,
             uport,
             userAccount: '',
@@ -50,10 +57,13 @@ class Main extends Component<{}, IMainState> {
 
     public componentWillMount = () => {
         const { web3 } = this.state;
-        web3.eth.getAccounts().then((a: string[]) => {
-            const registryQuizContract = new web3.eth.Contract(RegistryQuiz.abi, RegistryQuiz.networks[5777].address);
-            this.setState({ userAccount: a[0], registryQuizContract });
-        });
+        if (web3 !== undefined) {
+            web3.eth.getAccounts().then((a: string[]) => {
+                const registryQuizContract = new web3.eth
+                    .Contract(RegistryQuiz.abi, RegistryQuiz.networks[5777].address);
+                this.setState({ userAccount: a[0], registryQuizContract });
+            });
+        }
     }
 
     public handleClick = (event: any) => {
@@ -64,10 +74,11 @@ class Main extends Component<{}, IMainState> {
      * @ignore
      */
     public render() {
-        const { currentView, uport, loggedIn, web3, userAccount, registryQuizContract } = this.state;
+        const { currentView, uport, loggedIn, web3, userAccount, registryQuizContract, cookies } = this.state;
         let pageContent;
         if (!loggedIn) {
             pageContent = <Welcome
+                cookies={cookies}
                 userAccount={userAccount}
                 registryQuizContract={registryQuizContract}
                 uport={uport}
@@ -75,6 +86,7 @@ class Main extends Component<{}, IMainState> {
         } else {
             if (currentView === 'quiz') {
                 pageContent = <Quiz
+                    cookies={cookies}
                     uport={uport}
                     web3={web3}
                     registryQuizContract={registryQuizContract}

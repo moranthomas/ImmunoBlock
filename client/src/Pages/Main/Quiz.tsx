@@ -2,6 +2,7 @@ import Cryptr from 'cryptr';
 import ipfsClient from 'ipfs-http-client';
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Cookies from 'universal-cookie';
 
 
 const cryptr = new Cryptr('myTotalySecretKey');
@@ -15,10 +16,10 @@ interface IQuizProps {
     web3: any;
     registryQuizContract: any;
     userAccount: string;
+    cookies: Cookies;
 }
 interface IQuizState {
     editing: boolean;
-    fakeDid: string;
     quizAnswers: string[];
 }
 class Quiz extends Component<IQuizProps, IQuizState> {
@@ -29,18 +30,17 @@ class Quiz extends Component<IQuizProps, IQuizState> {
         super(props);
         this.state = {
             editing: false,
-            fakeDid: 'did:ethr:0x31486054a6ad2c0b685cd89ce0ba018e210d504b',
             quizAnswers: ['0', '', '', '', '', '', '', ''],
         };
     }
 
     public componentDidMount = () => {
-        const { registryQuizContract } = this.props;
-        const { fakeDid } = this.state;
-        registryQuizContract.methods.hasQuiz(fakeDid)
+        const { registryQuizContract, cookies } = this.props;
+        const did = cookies.get('did');
+        registryQuizContract.methods.hasQuiz(did)
             .call().then(async (has: boolean) => {
                 if (has === true) {
-                    const path = await registryQuizContract.methods.getQuiz(fakeDid).call();
+                    const path = await registryQuizContract.methods.getQuiz(did).call();
                     const quiz = await ipfs.cat(cryptr.decrypt(path));
                     this.setState({
                         editing: true,
@@ -73,8 +73,9 @@ class Quiz extends Component<IQuizProps, IQuizState> {
     }
 
     public handleSubmit = (event: any) => {
-        const { web3, userAccount, uport, registryQuizContract } = this.props;
-        const { quizAnswers, fakeDid } = this.state;
+        const { userAccount, registryQuizContract, cookies } = this.props;
+        const { quizAnswers } = this.state;
+        const did = cookies.get('did');
         const jsonResult = {
             answers: quizAnswers,
             date: new Date(),
@@ -83,9 +84,10 @@ class Quiz extends Component<IQuizProps, IQuizState> {
         const content = ipfsClient.Buffer.from(cryptr.encrypt(JSON.stringify(jsonResult)));
         ipfs.add(content).then((results: [{ path: string }]) => {
             // save the content address in ethereum
-            registryQuizContract.methods.uploadQuiz(fakeDid, cryptr.encrypt(results[0].path))
+            registryQuizContract.methods.uploadQuiz(did, cryptr.encrypt(results[0].path))
                 .send({ from: userAccount })
                 .on('receipt', (receipt: any) => {
+                    // TODO: reload page
                     // print a success message
                 })
                 .on('error', console.error);
