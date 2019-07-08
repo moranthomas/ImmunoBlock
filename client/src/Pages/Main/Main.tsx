@@ -10,6 +10,7 @@ import BasicRadarChart from './Statistics';
 import Welcome from './Welcome';
 
 import RegistryQuiz from '../../contracts/RegistryQuiz.json';
+import GiveAccess from './GiveAccess';
 
 
 const MainContent = styled.div`
@@ -72,12 +73,25 @@ class Main extends Component<{}, IMainState> {
                 uport={uport}
             />;
         } else {
-            pageContent = currentView === 'quiz' ? <Quiz
-                uport={uport}
-                web3={web3}
-                registryQuizContract={registryQuizContract}
-                userAccount={userAccount}
-            /> : currentView === 'statistics' ? <BasicRadarChart /> : this.loadMainCards();
+            if (currentView === 'quiz') {
+                pageContent = <Quiz
+                    uport={uport}
+                    web3={web3}
+                    registryQuizContract={registryQuizContract}
+                    userAccount={userAccount}
+                />;
+            } else if (currentView === 'statistics') {
+                pageContent = <BasicRadarChart />;
+            } else if (currentView === 'giveaccess') {
+                pageContent = <GiveAccess
+                    uport={uport}
+                    web3={web3}
+                    registryQuizContract={registryQuizContract}
+                    userAccount={userAccount}
+                />;
+            } else {
+                pageContent = this.loadMainCards();
+            }
         }
         return (
             <>
@@ -108,6 +122,25 @@ class Main extends Component<{}, IMainState> {
                                     <div className="content">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                     Phasellus nec iaculis mauris. <strong>Answer Quiz</strong>.
+                                    <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-tag="giveaccess" onClick={this.handleClick}>
+                            <div className="card">
+                                <div className="card-image">
+                                    <figure className="image is-4by3">
+                                        <img
+                                            src="https://bulma.io/images/placeholders/1280x960.png"
+                                            alt="Placeholder image"
+                                        />
+                                    </figure>
+                                </div>
+                                <div className="card-content">
+                                    <div className="content">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Phasellus nec iaculis mauris. <strong>Give Access</strong>.
                                     <br />
                                     </div>
                                 </div>
