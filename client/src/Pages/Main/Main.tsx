@@ -84,6 +84,7 @@ class Main extends Component<{}, IMainState> {
                 userAccount={userAccount}
                 registryQuizContract={registryQuizContract}
                 uport={uport}
+                web3={web3}
             />;
         } else {
             if (currentView === 'quiz') {

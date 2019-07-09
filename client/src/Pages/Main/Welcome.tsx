@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 
 
 interface IWelcomeProps {
+    web3: any;
     uport: any;
     registryQuizContract: any;
     userAccount: string;
@@ -12,7 +13,7 @@ interface IWelcomeProps {
 class Welcome extends Component<IWelcomeProps, {}> {
 
     public loginWithUPort = (event: any) => {
-        const { uport, registryQuizContract, userAccount, cookies } = this.props;
+        const { uport, registryQuizContract, userAccount, cookies, web3 } = this.props;
         // Request credentials to login
         const req = {
             notifications: true,
@@ -25,9 +26,14 @@ class Welcome extends Component<IWelcomeProps, {}> {
                 claim: { User: { Signed: new Date() } },
             });
             //
+            let account = userAccount;
+            if (userAccount.length < 1) {
+                const accounts = await web3.eth.getAccounts();
+                account = accounts[0];
+            }
             await (window as any).ethereum.enable();
             await registryQuizContract.methods.signupUser(disclosureReq.payload.did)
-                .send({ from: userAccount });
+                .send({ from: account });
             cookies.set('did', disclosureReq.payload.did, { path: '/' });
             window.location.reload();
         });
