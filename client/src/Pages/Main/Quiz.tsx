@@ -11,7 +11,6 @@ const ipfs = ipfsClient({
     port: process.env.REACT_APP_IPFS_PORT,
     protocol: process.env.REACT_APP_IPFS_PROTOCOL,
 });
-console.log('process.env.IPFS_HOST', process.env);
 const QuizFrame = styled.div`
     padding: 0% 25%;
 `;

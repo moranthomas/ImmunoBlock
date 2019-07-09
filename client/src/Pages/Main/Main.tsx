@@ -11,7 +11,7 @@ import BasicRadarChart from './Statistics';
 import Welcome from './Welcome';
 
 import RegistryQuiz from '../../contracts/RegistryQuiz.json';
-import GiveAccess from './GiveAccess';
+import GrantAccess from './GrantAccess';
 
 
 const networkID: string = process.env.REACT_APP_NETWORK_ID === undefined ? '3' : process.env.REACT_APP_NETWORK_ID;
@@ -96,8 +96,9 @@ class Main extends Component<{}, IMainState> {
                 />;
             } else if (currentView === 'statistics') {
                 pageContent = <BasicRadarChart />;
-            } else if (currentView === 'giveaccess') {
-                pageContent = <GiveAccess
+            } else if (currentView === 'grantaccess') {
+                pageContent = <GrantAccess
+                    cookies={cookies}
                     uport={uport}
                     web3={web3}
                     registryQuizContract={registryQuizContract}
@@ -141,7 +142,7 @@ class Main extends Component<{}, IMainState> {
                                 </div>
                             </div>
                         </td>
-                        <td data-tag="giveaccess" onClick={this.handleClick}>
+                        <td data-tag="grantaccess" onClick={this.handleClick}>
                             <div className="card">
                                 <div className="card-image">
                                     <figure className="image is-4by3">
@@ -154,7 +155,7 @@ class Main extends Component<{}, IMainState> {
                                 <div className="card-content">
                                     <div className="content">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Phasellus nec iaculis mauris. <strong>Give Access</strong>.
+                                    Phasellus nec iaculis mauris. <strong>Grant Access</strong>.
                                     <br />
                                     </div>
                                 </div>

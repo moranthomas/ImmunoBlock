@@ -62,7 +62,7 @@ contract RegistryQuiz is Ownable {
     /**
      * @dev Give permission to another user providing the did.
      */
-    function givePermissions(string memory _userDid, string memory _toDid) public onlyUser(_userDid) {
+    function grantAccess(string memory _userDid, string memory _toDid) public onlyUser(_userDid) {
         allowed[_toDid][quiz[_userDid]] = true;
         emit userAllowed(_userDid, _toDid);
     }

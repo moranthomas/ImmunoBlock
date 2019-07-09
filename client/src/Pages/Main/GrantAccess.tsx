@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Cookies from 'universal-cookie';
 
 
-const GiveAccessContent = styled.div`
+const GrantAccessContent = styled.div`
     margin: 4% 20%;
 `;
-interface IGiveAccessProps {
+interface IGrantAccessProps {
     uport: any;
     web3: any;
     registryQuizContract: any;
     userAccount: string;
+    cookies: Cookies;
 }
-interface IGiveAccessStatus {
+interface IGrantAccessStatus {
     grantAccessToDid: string;
 }
-class GiveAccess extends Component<IGiveAccessProps, IGiveAccessStatus> {
+class GrantAccess extends Component<IGrantAccessProps, IGrantAccessStatus> {
 
     constructor(props: any) {
         super(props);
@@ -29,13 +31,11 @@ class GiveAccess extends Component<IGiveAccessProps, IGiveAccessStatus> {
 
     public submitGrantAccess = (event: any) => {
         const { grantAccessToDid } = this.state;
-        const { registryQuizContract, userAccount } = this.props;
-        const fakeDid = 'did:ethr:0x31486054a6ad2c0b685cd89ce0ba018e210d504b';
-        registryQuizContract.methods.givePermissions(fakeDid, grantAccessToDid)
+        const { registryQuizContract, userAccount, cookies } = this.props;
+        registryQuizContract.methods.grantAccess(cookies.get('did'), grantAccessToDid)
             .send({ from: userAccount })
             .on('receipt', (receipt: any) => {
-                // print a success message
-                console.log('success', receipt);
+                // TODO: print a success message
             })
             .on('error', console.error);
         event.preventDefault();
@@ -44,7 +44,7 @@ class GiveAccess extends Component<IGiveAccessProps, IGiveAccessStatus> {
     public render() {
         const { grantAccessToDid } = this.state;
         return (
-            <GiveAccessContent>
+            <GrantAccessContent>
                 <form onSubmit={this.submitGrantAccess}>
                     <div className="field">
                         <label className="label">Grant Access to</label>
@@ -62,13 +62,13 @@ class GiveAccess extends Component<IGiveAccessProps, IGiveAccessStatus> {
                         <input className="button is-primary" type="submit" />
                     </div>
                 </form>
-                <h1 className="title">Given Accesses</h1>
+                <h1 className="title">Access Granted</h1>
                 <ul>
-                    <li>Some</li>
+                    <li>Not available yet!</li>
                 </ul>
-            </GiveAccessContent>
+            </GrantAccessContent>
         );
     }
 }
 
-export default GiveAccess;
+export default GrantAccess;
