@@ -14,6 +14,11 @@ const ipfs = ipfsClient({
 const QuizFrame = styled.div`
     padding: 0% 25%;
 `;
+const DisclaimerFrame = styled.div`
+    @media (min-width: 1024px) {
+        max-width: 800px;
+    }
+`;
 
 interface IQuizProps {
     uport: any;
@@ -106,61 +111,66 @@ class Quiz extends Component<IQuizProps, IQuizState> {
         const { quizAnswers, editing } = this.state;
         return (
             <div>
-                <h1 className="title is-1">Welcome to the Quiz</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget metus a nunc fermentum
-                    posuere. Nunc vitae nisi vel neque tempus ultricies ut nec quam. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit. Etiam ac est mauris. Nunc placerat neque quis mi pretium, ac placerat
-                    nisl bibendum. Mauris ut dolor nec elit porta tincidunt. Donec maximus sagittis purus vel gravida.
-                    Nam imperdiet nunc sed ultrices congue. Nam luctus nunc at tristique aliquam. Vivamus lobortis,
-                    ante elementum hendrerit pharetra, elit lacus lobortis odio, eu porta elit leo sed lorem.</p>
-                <br />
-                <p>Donec faucibus enim sed diam fringilla, vel congue ante aliquam. Vestibulum eu erat augue. Aliquam
-                    ultrices malesuada finibus. Aliquam non metus tempus, auctor nulla nec, facilisis augue. Nulla ut
-                    augue aliquam, cursus turpis viverra, rutrum nisl. Ut ut ipsum et odio pellentesque vehicula. Orci
-                    varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                <br />
-                <h2 className="title is-2">Terms and Conditions</h2>
-                <p>Fusce luctus lorem efficitur augue ullamcorper, ut cursus enim tempor. Suspendisse
-                    a ultricies lectus, sed fermentum odio. Duis lorem lacus, mollis in placerat in, tempor in
-                    mauris. Praesent porta orci erat, non venenatis dolor rhoncus maximus. Vestibulum tristique
-                    iaculis elementum. Sed sagittis lectus condimentum justo tincidunt, consectetur mollis orci
-                    venenatis. Mauris vehicula ante in ipsum ullamcorper faucibus. Vivamus eu eleifend ex, in
-                    bibendum lacus. Duis iaculis consequat sagittis. In mauris enim, accumsan sed laoreet ut,
-                    placerat id ante. Aliquam et semper lacus. Pellentesque scelerisque viverra dui et hendrerit.
-                    Vestibulum bibendum eros eu sem cursus lacinia. Orci varius natoque penatibus et magnis dis
+                <DisclaimerFrame>
+                    <h1 className="title is-1">Welcome to the Quiz</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget metus a nunc fermentum
+                        posuere. Nunc vitae nisi vel neque tempus ultricies ut nec quam. Lorem ipsum dolor sit amet,
+                        consectetur adipiscing elit. Etiam ac est mauris. Nunc placerat neque quis mi pretium,
+                        ac placerat nisl bibendum. Mauris ut dolor nec elit porta tincidunt. Donec maximus
+                        sagittis purus vel gravida. Nam imperdiet nunc sed ultrices congue. Nam luctus
+                        nunc at tristique aliquam. Vivamus lobortis, ante elementum hendrerit pharetra, elit
+                        lacus lobortis odio, eu porta elit leo sed lorem.</p>
+                    <br />
+                    <p>Donec faucibus enim sed diam fringilla, vel congue ante aliquam. Vestibulum eu erat
+                        augue. Aliquam ultrices malesuada finibus. Aliquam non metus tempus, auctor nulla
+                        nec, facilisis augue. Nulla ut augue aliquam, cursus turpis viverra, rutrum nisl.
+                        Ut ut ipsum et odio pellentesque vehicula. Orci varius natoque penatibus et magnis
+                        dis parturient montes, nascetur ridiculus mus.</p>
+                    <br />
+                    <h2 className="title is-2">Terms and Conditions</h2>
+                    <p>Fusce luctus lorem efficitur augue ullamcorper, ut cursus enim tempor. Suspendisse
+                        a ultricies lectus, sed fermentum odio. Duis lorem lacus, mollis in placerat in, tempor in
+                        mauris. Praesent porta orci erat, non venenatis dolor rhoncus maximus. Vestibulum tristique
+                        iaculis elementum. Sed sagittis lectus condimentum justo tincidunt, consectetur mollis orci
+                        venenatis. Mauris vehicula ante in ipsum ullamcorper faucibus. Vivamus eu eleifend ex, in
+                        bibendum lacus. Duis iaculis consequat sagittis. In mauris enim, accumsan sed laoreet ut,
+                        placerat id ante. Aliquam et semper lacus. Pellentesque scelerisque viverra dui et hendrerit.
+                        Vestibulum bibendum eros eu sem cursus lacinia. Orci varius natoque penatibus et magnis dis
                     parturient montes, nascetur ridiculus mus.</p>
-                <br />
-                <p>Pellentesque interdum sem vitae nisi tempus, at egestas eros maximus. Pellentesque
-                    vel ante nisl. Proin pulvinar, eros id posuere congue, lacus sapien hendrerit ante, eget mattis
-                    magna mi id felis. Sed rutrum elit lorem, ac fermentum ante tincidunt in. Pellentesque habitant
-                    morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis porttitor magna ut
-                    elit semper auctor. Integer ac felis sed sem bibendum ornare non vel odio. Ut neque tortor,
-                    bibendum ac aliquet vitae, congue lobortis mauris. Vivamus ut convallis odio. Ut quis lacinia
+                    <br />
+                    <p>Pellentesque interdum sem vitae nisi tempus, at egestas eros maximus. Pellentesque
+                        vel ante nisl. Proin pulvinar, eros id posuere congue, lacus sapien hendrerit ante, eget mattis
+                        magna mi id felis. Sed rutrum elit lorem, ac fermentum ante tincidunt in. Pellentesque habitant
+                        morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis porttitor magna ut
+                        elit semper auctor. Integer ac felis sed sem bibendum ornare non vel odio. Ut neque tortor,
+                        bibendum ac aliquet vitae, congue lobortis mauris. Vivamus ut convallis odio. Ut quis lacinia
                     leo. Aliquam commodo accumsan lorem, vitae euismod quam rhoncus eu.</p>
-                <h2 className="title is-2">Gathering the Data</h2>
-                <p>The more data collected, the stronger and more reliable the information will be for researchers
-                    to study. For this reason, it is important to have as many participants as possible included in
-                    the Autoimmune Research Network (ARNet). NCAPG members and other interested parties who want to
-                    join ARNet are welcome to create their own webpage on their own website to
+                    <h2 className="title is-2">Gathering the Data</h2>
+                    <p>The more data collected, the stronger and more reliable the information will be for researchers
+                        to study. For this reason, it is important to have as many participants as possible included in
+                        the Autoimmune Research Network (ARNet). NCAPG members and other interested parties who want to
+                        join ARNet are welcome to create their own webpage on their own website to
                     encourage participation.</p>
-                <h2 className="title is-2">Using the data</h2>
-                <p>The data collected will be stored securely through Global Vision T echnologies.
-                    When researchers want access to the information, they will contact ARNet. From
-                    that point, AARDA or the participating group will work with the researchers
-                    to provide them with the data, regardless of which organization the patients went
-                    through to submit their data. The information will be used to gather patient experiences
-                    and help with autoimmune research. Researchers and companies may make a contribution
+                    <h2 className="title is-2">Using the data</h2>
+                    <p>The data collected will be stored securely through Global Vision T echnologies.
+                        When researchers want access to the information, they will contact ARNet. From
+                        that point, AARDA or the participating group will work with the researchers
+                        to provide them with the data, regardless of which organization the patients went
+                        through to submit their data. The information will be used to gather patient experiences
+                        and help with autoimmune research. Researchers and companies may make a contribution
                     to the charity for access to the information.</p>
-                <br />
-                <p>This is where you will be able to set up your preferences for granting and revoking
+                    <br />
+                    <p>This is where you will be able to set up your preferences for granting and revoking
                     access to third parties to share your data</p>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+                    <br />
+                    <br />
+                    <h3 className="title is-3">By answering the quiz below, you agree with the above conditions.</h3>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </DisclaimerFrame>
                 <QuizFrame>
                     {editing === true ? this.editingMessage() : null}
                     <form onSubmit={this.handleSubmit}>

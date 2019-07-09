@@ -13,7 +13,12 @@ import Welcome from './Welcome';
 import RegistryQuiz from '../../contracts/RegistryQuiz.json';
 import GrantAccess from './GrantAccess';
 
-
+const TableTR = styled.div`
+display: grid;
+@media (min-width: 1024px) {
+    display: block;
+}
+`;
 const networkID: string = process.env.REACT_APP_NETWORK_ID === undefined ? '3' : process.env.REACT_APP_NETWORK_ID;
 const MainContent = styled.div`
     font-family: 'Maven Pro', sans-serif;
@@ -39,7 +44,7 @@ class Main extends Component<{}, IMainState> {
         const cookies = new Cookies();
         const uport = getUport();
         const web3 = new Web3((window as any).ethereum);
-        let loggedIn = false;
+        let loggedIn = true;
         uport.loadState();
         if (cookies.get('did') !== undefined) {
             (window as any).ethereum.enable();
@@ -123,7 +128,7 @@ class Main extends Component<{}, IMainState> {
         return (
             <table>
                 <tbody>
-                    <tr>
+                    <TableTR>
                         <td data-tag="quiz" onClick={this.handleClick}>
                             <div className="card">
                                 <div className="card-image">
@@ -181,7 +186,7 @@ class Main extends Component<{}, IMainState> {
                                 </div>
                             </div>
                         </td>
-                    </tr>
+                    </TableTR>
                 </tbody>
             </table>
         );

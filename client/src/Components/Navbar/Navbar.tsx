@@ -1,8 +1,17 @@
 import React, { Component, FunctionComponent } from 'react';
+import styled from 'styled-components';
 
 import pinkHeart from './pink_heart.png';
 
 
+const NavbarFrame = styled.div`
+    @media (min-width: 1024px) {
+        padding: 2%;
+    }
+`;
+const ImmunoName = styled.div`
+    padding: 0px 10%;
+`;
 interface INavbarProps {
     uport: any;
 }
@@ -37,6 +46,8 @@ class Navbar extends Component<INavbarProps, INavbarState> {
     public handleLogout = (event: any) => {
         const { uport } = this.props;
         uport.logout();
+        // TODO: relaoad page
+        // TODO: clear cookie did
     }
 
     /**
@@ -45,11 +56,12 @@ class Navbar extends Component<INavbarProps, INavbarState> {
     public render() {
         const { burgerMenuActive } = this.state;
         const activeBurgerMenu = (burgerMenuActive) ? ('is-active') : ('');
-        return (<>
+        return (<NavbarFrame>
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
                     <a className="navbar-item" href="https://bulma.io">
                         <img src={pinkHeart} height="28" alt="immunoblock pink heart" />
+                        <ImmunoName>ImunnoBlock</ImmunoName>
                     </a>
                     <a
                         role="button"
@@ -66,16 +78,11 @@ class Navbar extends Component<INavbarProps, INavbarState> {
                 </div>
 
                 <div id="navbarBasicExample" className={'navbar-menu ' + activeBurgerMenu}>
-                    <div className="navbar-start">
-                        <a className="navbar-item" href="/">Home</a>
-                    </div>
-
                     <div className="navbar-end">
-                        <div className="navbar-item">
-                            <div className="buttons">
-                                {this.renderAuth()}
-                            </div>
-                        </div>
+                        <a className="navbar-item" href="/">Home</a>
+                        <a className="navbar-item" href="#">How it works</a>
+                        <a className="navbar-item" href="#">About</a>
+                        <div className="navbar-item">{this.renderAuth()}</div>
                     </div>
                 </div>
             </nav>
@@ -84,7 +91,7 @@ class Navbar extends Component<INavbarProps, INavbarState> {
                 handleLogout={this.handleLogout}
                 show={this.state.logoutPopUp}
             />
-        </>);
+        </NavbarFrame>);
     }
 
     private renderAuth() {
@@ -94,7 +101,7 @@ class Navbar extends Component<INavbarProps, INavbarState> {
         const username = uport.state.name;
         // if the user is logged, say hello!
         if (username !== undefined) {
-            return <div>welcome <strong onClick={this.tooglePopUpLogout}>{username}</strong></div>;
+            return <div>Welcome, <strong onClick={this.tooglePopUpLogout}>{username}</strong></div>;
         }
     }
 }
