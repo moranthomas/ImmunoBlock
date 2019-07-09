@@ -49,7 +49,7 @@ class Navbar extends Component<INavbarProps, INavbarState> {
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
                     <a className="navbar-item" href="https://bulma.io">
-                        <img src={pinkHeart} height="28" />
+                        <img src={pinkHeart} height="28" alt="immunoblock pink heart" />
                     </a>
                     <a
                         role="button"
@@ -112,7 +112,10 @@ const Modal: FunctionComponent<{
                     <article className="media">
                         <div className="media-left">
                             <figure className="image is-64x64">
-                                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image" />
+                                <img
+                                    src="https://bulma.io/images/placeholders/128x128.png"
+                                    alt="modal placeholder"
+                                />
                             </figure>
                         </div>
                         <div className="media-content">

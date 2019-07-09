@@ -2,6 +2,7 @@ import Cryptr from 'cryptr';
 import ipfsClient from 'ipfs-http-client';
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Cookies from 'universal-cookie';
 import Web3 from 'web3';
 
 import Navbar from '../../Components/Navbar/Navbar';
@@ -10,8 +11,13 @@ import getUport from '../../utils/getUport';
 import RegistryQuiz from '../../contracts/RegistryQuiz.json';
 
 
-const cryptr = new Cryptr('myTotalySecretKey');
-const ipfs = ipfsClient('localhost', '5001', { protocol: 'http' });
+const networkID: string = process.env.REACT_APP_NETWORK_ID === undefined ? '3' : process.env.REACT_APP_NETWORK_ID;
+const cryptr = new Cryptr(process.env.REACT_APP_CRYPTR_KEY === undefined ? 'abc' : process.env.REACT_APP_CRYPTR_KEY);
+const ipfs = ipfsClient({
+    host: process.env.REACT_APP_IPFS_HOST,
+    port: process.env.REACT_APP_IPFS_PORT,
+    protocol: process.env.REACT_APP_IPFS_PROTOCOL,
+});
 const MainContent = styled.div`
     font-family: 'Maven Pro', sans-serif;
     text-align: center;
@@ -24,6 +30,7 @@ interface IMainState {
     userAccount: string;
     registryQuizContract: any;
     result: string;
+    cookies: Cookies;
 }
 class Main extends Component<{ match: { params: { patientdid: string } } }, IMainState> {
     /**
@@ -31,12 +38,16 @@ class Main extends Component<{ match: { params: { patientdid: string } } }, IMai
      */
     constructor(props: any) {
         super(props);
+        const cookies = new Cookies();
         const uport = getUport();
-        // uport.loadState();
-        // const web3 = new Web3(uport.getProvider());
         const web3 = new Web3((window as any).ethereum);
+        uport.loadState();
+        if (cookies.get('did') === undefined) {
+            window.location.href = '/';
+        }
         (window as any).ethereum.enable();
         this.state = {
+            cookies: new Cookies(),
             registryQuizContract: undefined as any,
             result: '',
             uport,
@@ -46,16 +57,16 @@ class Main extends Component<{ match: { params: { patientdid: string } } }, IMai
     }
 
     public componentDidMount = () => {
-        const { web3 } = this.state;
+        const { web3, cookies } = this.state;
         web3.eth.getAccounts().then(async (a: string[]) => {
+            const networks = RegistryQuiz.networks as any;
             const registryQuizContract = new web3.eth
-                .Contract(RegistryQuiz.abi, RegistryQuiz.networks[5777].address);
+                .Contract(RegistryQuiz.abi, networks[networkID].address);
             //
             const { match: { params } } = this.props;
             if (params.patientdid !== undefined) {
-                const fakeCompanyDid = 'did:ethr:0x93750204a6ad2c0b685cd89ce0ba018e210d202f';
                 const access = await registryQuizContract.methods
-                    .accessPatientQuiz(fakeCompanyDid, params.patientdid).call();
+                    .accessPatientQuiz(cookies.get('did'), params.patientdid).call();
                 const quiz = await ipfs.cat(cryptr.decrypt(access));
                 this.setState({
                     result: JSON.parse(cryptr.decrypt(quiz.toString())).answers,

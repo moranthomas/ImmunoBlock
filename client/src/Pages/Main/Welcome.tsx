@@ -29,7 +29,7 @@ class Welcome extends Component<IWelcomeProps, {}> {
                 .send({ from: userAccount })
                 .then((receipt: any) => {
                     cookies.set('did', disclosureReq.payload.did, { path: '/' });
-                    // TODO: reload page
+                    window.location.reload();
                 });
         });
         event.preventDefault();

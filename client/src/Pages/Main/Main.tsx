@@ -14,6 +14,7 @@ import RegistryQuiz from '../../contracts/RegistryQuiz.json';
 import GiveAccess from './GiveAccess';
 
 
+const networkID: string = process.env.REACT_APP_NETWORK_ID === undefined ? '3' : process.env.REACT_APP_NETWORK_ID;
 const MainContent = styled.div`
     font-family: 'Maven Pro', sans-serif;
     text-align: center;
@@ -59,8 +60,9 @@ class Main extends Component<{}, IMainState> {
         const { web3 } = this.state;
         if (web3 !== undefined) {
             web3.eth.getAccounts().then((a: string[]) => {
+                const networks = RegistryQuiz.networks as any;
                 const registryQuizContract = new web3.eth
-                    .Contract(RegistryQuiz.abi, RegistryQuiz.networks[5777].address);
+                    .Contract(RegistryQuiz.abi, networks[networkID].address);
                 this.setState({ userAccount: a[0], registryQuizContract });
             });
         }
@@ -126,7 +128,7 @@ class Main extends Component<{}, IMainState> {
                                     <figure className="image is-4by3">
                                         <img
                                             src="https://bulma.io/images/placeholders/1280x960.png"
-                                            alt="Placeholder image"
+                                            alt="placeholder quiz"
                                         />
                                     </figure>
                                 </div>
@@ -145,7 +147,7 @@ class Main extends Component<{}, IMainState> {
                                     <figure className="image is-4by3">
                                         <img
                                             src="https://bulma.io/images/placeholders/1280x960.png"
-                                            alt="Placeholder image"
+                                            alt="placeholder access"
                                         />
                                     </figure>
                                 </div>
@@ -164,7 +166,7 @@ class Main extends Component<{}, IMainState> {
                                     <figure className="image is-4by3">
                                         <img
                                             src="https://bulma.io/images/placeholders/1280x960.png"
-                                            alt="Placeholder image"
+                                            alt="placeholder statistics"
                                         />
                                     </figure>
                                 </div>

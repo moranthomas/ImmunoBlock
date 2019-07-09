@@ -5,8 +5,13 @@ import styled from 'styled-components';
 import Cookies from 'universal-cookie';
 
 
-const cryptr = new Cryptr('myTotalySecretKey');
-const ipfs = ipfsClient('localhost', '5001', { protocol: 'http' });
+const cryptr = new Cryptr(process.env.REACT_APP_CRYPTR_KEY === undefined ? 'abc' : process.env.REACT_APP_CRYPTR_KEY);
+const ipfs = ipfsClient({
+    host: process.env.REACT_APP_IPFS_HOST,
+    port: process.env.REACT_APP_IPFS_PORT,
+    protocol: process.env.REACT_APP_IPFS_PROTOCOL,
+});
+console.log('process.env.IPFS_HOST', process.env);
 const QuizFrame = styled.div`
     padding: 0% 25%;
 `;
@@ -87,7 +92,7 @@ class Quiz extends Component<IQuizProps, IQuizState> {
             registryQuizContract.methods.uploadQuiz(did, cryptr.encrypt(results[0].path))
                 .send({ from: userAccount })
                 .on('receipt', (receipt: any) => {
-                    // TODO: reload page
+                    window.location.reload();
                     // print a success message
                 })
                 .on('error', console.error);
