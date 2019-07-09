@@ -52,17 +52,24 @@ class Welcome extends Component<IWelcomeProps, {}> {
                 Welcome to the Global Autoimmune Tracking Repository
             </p>
             <p>
-                Created as part of the: Beyond Blockchain Hackathon.
-            </p>
-
-            <p>
-                Learn More
-            </p>
-            <p>
-                About The ProjectAbout Gitcoin
+                Created as part of the:
+                <a
+                    href="https://gitcoin.co/issue/ConsenSys/Beyond-Blockchain-Relay/3/3158"
+                >
+                    Beyond Blockchain Hackathon
+                </a>
+                .
             </p>
             <br />
             <UPortButton.Solid onClick={this.loginWithUPort}>Connect with uPort</UPortButton.Solid>
+            <br />
+            <br />
+            <h2 className="title is-2">Learn More</h2>
+            <p>
+                <a href="#">About The Project</a>
+                &ensp;&ensp;&ensp;
+                <a href="http://gitcoin.co/issue/ConsenSys/Beyond-Blockchain-Relay/3/3158">About Gitcoin</a>
+            </p>
         </>);
     }
 }
