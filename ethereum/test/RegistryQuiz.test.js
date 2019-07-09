@@ -11,7 +11,7 @@ contract('SimpleStorage', (accounts) => {
     let registryQuiz;
 
     beforeEach(async () => {
-        registryQuiz = await RegistryQuiz.deployed();
+        registryQuiz = await RegistryQuiz.new();
     });
 
     it('should have a quiz after add one', async () => {
@@ -44,7 +44,7 @@ contract('SimpleStorage', (accounts) => {
         await registryQuiz.uploadQuiz(fakeUserDid, fakeFilePath, { from: accounts[1] });
         // eslint-disable-next-line no-unused-expressions
         await expect(registryQuiz.accessPatientQuiz(fakeCompanyDid, fakeUserDid)).to.revertWith('Access denied!');
-        await registryQuiz.givePermissions(fakeUserDid, fakeCompanyDid, { from: accounts[1] });
+        await registryQuiz.grantAccess(fakeUserDid, fakeCompanyDid, { from: accounts[1] });
         // eslint-disable-next-line no-unused-expressions
         (await registryQuiz.accessPatientQuiz(fakeCompanyDid, fakeUserDid)).should.be.equal(fakeFilePath);
     });

@@ -1925,12 +1925,13 @@ ethereum-common@^0.0.18:
   resolved "https://registry.yarnpkg.com/ethereum-common/-/ethereum-common-0.0.18.tgz#2fdc3576f232903358976eb39da783213ff9523f"
   integrity sha1-L9w1dvIykDNYl26znaeDIT/5Uj8=
 
-ethereumjs-testrpc-sc@6.1.6:
-  version "6.1.6"
-  resolved "https://registry.yarnpkg.com/ethereumjs-testrpc-sc/-/ethereumjs-testrpc-sc-6.1.6.tgz#290595380b5182814564d4aa38f35b7788aab070"
-  integrity sha512-iv2qiGBFgk9mn5Nq2enX8dG5WQ7Lk+FCqpnxfPfH4Ns8KLPwttmNOy264nh3SXDJJvcQwz/XnlLteDQVILotbg==
+ethereumjs-testrpc-sc@6.4.1:
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/ethereumjs-testrpc-sc/-/ethereumjs-testrpc-sc-6.4.1.tgz#8772c52f50462ff4f30dc52ef0a973feaa9e7079"
+  integrity sha512-5iDomKQm/P61mN0PEJsuWITzQvOjhCfjm+LIbwjP3BTOhvyGJ37mcE9ApI6EJOss/Lvq9YM/WR0V9IG3gT2Wrw==
   dependencies:
-    source-map-support "^0.5.3"
+    bn.js "4.11.8"
+    source-map-support "0.5.9"
 
 ethereumjs-tx@^1.3.7:
   version "1.3.7"
@@ -2586,9 +2587,10 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-girino@obernardovieira/girino#c686bce:
+girino@^0.0.1-alpha:
   version "0.0.1-alpha"
-  resolved "https://codeload.github.com/obernardovieira/girino/tar.gz/c686bce17755bb78e2af813f5301a151e74b9f6d"
+  resolved "https://registry.yarnpkg.com/girino/-/girino-0.0.1-alpha.tgz#772db6d2c8dc0c17a674128f406241fae43c0d56"
+  integrity sha512-E75dAzCz/JS3uowsimTSqVNWlxE+XWz0lj/D6JtMKsFHiT7Kth+pGl4F40Ui9mQe0RvSeMFuhYTLVMgz8AWe6w==
   dependencies:
     bignumber.js "9.0.0"
     chai "4.2.0"
@@ -5611,13 +5613,13 @@ soldoc@0.1.0:
     sol-comments-parser "0.1.0-alpha"
     solidity-parser-antlr "0.4.2"
 
-solidity-coverage@0.6.0-beta.3:
-  version "0.6.0-beta.3"
-  resolved "https://registry.yarnpkg.com/solidity-coverage/-/solidity-coverage-0.6.0-beta.3.tgz#1d327dbc940f290ffa401c64c3f6abccc04fbf7b"
-  integrity sha512-qbxWRh8puZxlVuu47pWC4t1jNJDOi10VQLHlq3T8zmJxn5lIpthqkbq3mfLyxQ8WcR5jZlyaObfPDzRYAouGVw==
+solidity-coverage@0.6.0-beta.5:
+  version "0.6.0-beta.5"
+  resolved "https://registry.yarnpkg.com/solidity-coverage/-/solidity-coverage-0.6.0-beta.5.tgz#e322ff37b3e74bb4872724c1247eaa0704a5beba"
+  integrity sha512-xtsOpCS3bfRJMfaMaPoPk3yG41PzgbgiFJv2miY6sWZq5VzIpFPRfddZDOA37Lb3dsjGEpA/NXBQqt1ZJ8h+bg==
   dependencies:
     death "^1.1.0"
-    ethereumjs-testrpc-sc "6.1.6"
+    ethereumjs-testrpc-sc "6.4.1"
     istanbul "^0.4.5"
     keccakjs "^0.2.1"
     req-cwd "^1.0.1"
@@ -5625,8 +5627,8 @@ solidity-coverage@0.6.0-beta.3:
     sol-explore "^1.6.2"
     solidity-parser-antlr "^0.4.1"
     tree-kill "^1.2.0"
-    web3 "^1.0.0-beta.37"
-    web3-eth-abi "1.0.0-beta.37"
+    web3 "^1.0.0-beta.50"
+    web3-eth-abi "1.0.0-beta.50"
 
 solidity-parser-antlr@0.4.2:
   version "0.4.2"
@@ -5667,14 +5669,6 @@ source-map-support@0.5.9:
   version "0.5.9"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.9.tgz#41bc953b2534267ea2d605bccfa7bfa3111ced5f"
   integrity sha512-gR6Rw4MvUlYy83vP0vxoVNzM6t8MUXqNuRsuBmBHQDu1Fh6X015FrLdgoDKcNdkwGubozq0P4N0Q37UyFVr1EA==
-  dependencies:
-    buffer-from "^1.0.0"
-    source-map "^0.6.0"
-
-source-map-support@^0.5.3:
-  version "0.5.12"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.12.tgz#b4f3b10d51857a5af0138d3ce8003b201613d599"
-  integrity sha512-4h2Pbvyy15EE02G+JOZpUCmqWJuqrs+sEkzewTm++BPi7Hvn/HwcqLAcNxYAyI0x13CpPPn+kMjl+hplXMHITQ==
   dependencies:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
@@ -6620,6 +6614,16 @@ web3-eth-abi@1.0.0-beta.37:
     underscore "1.8.3"
     web3-utils "1.0.0-beta.37"
 
+web3-eth-abi@1.0.0-beta.50:
+  version "1.0.0-beta.50"
+  resolved "https://registry.yarnpkg.com/web3-eth-abi/-/web3-eth-abi-1.0.0-beta.50.tgz#52ca509257648c6088aa9d8874d6ea5f249c6de7"
+  integrity sha512-Nwm1HL3xBbrs43j/9V3gH1CJWWR7jyTDSE7PIkjYVjwgygAjlHPMHzuzGffoFMp2tSQ2DywCGmXAY5I5+vznZw==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+    ethers "^4.0.27"
+    lodash "^4.17.11"
+    web3-utils "1.0.0-beta.50"
+
 web3-eth-abi@1.0.0-beta.55:
   version "1.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/web3-eth-abi/-/web3-eth-abi-1.0.0-beta.55.tgz#69250420039346105a3d0f899c0a8a53be926f97"
@@ -6913,6 +6917,22 @@ web3-utils@1.0.0-beta.37:
     underscore "1.8.3"
     utf8 "2.1.1"
 
+web3-utils@1.0.0-beta.50:
+  version "1.0.0-beta.50"
+  resolved "https://registry.yarnpkg.com/web3-utils/-/web3-utils-1.0.0-beta.50.tgz#ed12454d3d2727d3b77695c1899ad3abbef303af"
+  integrity sha512-xGhM/YkepK2x0iMYUl/sws58LzTbodjMGlhZxrCZLZxJ0DoaDyk3UdmZ6aCSCwVTFg4hlVj3doaIhWnwGfhhpQ==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+    "@types/bn.js" "^4.11.4"
+    "@types/node" "^10.12.18"
+    bn.js "4.11.8"
+    eth-lib "0.2.8"
+    ethjs-unit "^0.1.6"
+    lodash "^4.17.11"
+    number-to-bn "1.7.0"
+    randomhex "0.1.5"
+    utf8 "2.1.1"
+
 web3-utils@1.0.0-beta.55:
   version "1.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/web3-utils/-/web3-utils-1.0.0-beta.55.tgz#beb40926b7c04208b752d36a9bc959d27a04b308"
@@ -6953,7 +6973,7 @@ web3@^0.18.4:
     xhr2 "*"
     xmlhttprequest "*"
 
-web3@^1.0.0-beta.37:
+web3@^1.0.0-beta.50:
   version "1.0.0-beta.55"
   resolved "https://registry.yarnpkg.com/web3/-/web3-1.0.0-beta.55.tgz#8845075129299da172c2eb41a748c8a87c2a2b5a"
   integrity sha512-yJpwy4IUA3T/F9hWzYQVn0GbJCrAaZ0KTIO3iuqkhaYH0Y09KV7k4GzFi4hN7hT4cFTj4yIKaeVCwQ5kzvi2Vg==
@@ -7158,7 +7178,7 @@ yargs-parser@^9.0.2:
   dependencies:
     camelcase "^4.1.0"
 
-yargs@11.1.0:
+yargs@11.1.0, yargs@^11.0.0:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-11.1.0.tgz#90b869934ed6e871115ea2ff58b03f4724ed2d77"
   integrity sha512-NwW69J42EsCSanF8kyn5upxvjp5ds+t3+udGBeTbFnERA+lF541DDpMawzo4z6W/QrzNM18D+BPMiOBibnFV5A==

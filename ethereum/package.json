@@ -44,10 +44,10 @@
         "eth-gas-reporter": "0.2.0",
         "ethlint": "1.2.1",
         "ganache-cli": "6.4.4",
+        "girino": "0.0.1-alpha",
         "soldoc": "0.1.0",
         "solidity-coverage": "0.6.0-beta.5",
         "truffle": "5.0.26",
-        "truffle-hdwallet-provider": "1.0.10",
-        "girino": "obernardovieira/girino#c686bce"
+        "truffle-hdwallet-provider": "1.0.10"
     }
 }
