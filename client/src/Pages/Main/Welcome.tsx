@@ -19,18 +19,17 @@ class Welcome extends Component<IWelcomeProps, {}> {
             requested: ['name', 'country'],
         };
         uport.requestDisclosure(req);
-        uport.onResponse('disclosureReq').then((disclosureReq: any) => {
+        uport.onResponse('disclosureReq').then(async (disclosureReq: any) => {
             //
             uport.sendVerification({
                 claim: { User: { Signed: new Date() } },
             });
             //
-            registryQuizContract.methods.signupUser(disclosureReq.payload.did)
-                .send({ from: userAccount })
-                .then((receipt: any) => {
-                    cookies.set('did', disclosureReq.payload.did, { path: '/' });
-                    window.location.reload();
-                });
+            await (window as any).ethereum.enable();
+            await registryQuizContract.methods.signupUser(disclosureReq.payload.did)
+                .send({ from: userAccount });
+            cookies.set('did', disclosureReq.payload.did, { path: '/' });
+            window.location.reload();
         });
         event.preventDefault();
     }
