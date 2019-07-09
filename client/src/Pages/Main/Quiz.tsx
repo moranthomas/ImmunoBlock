@@ -137,6 +137,30 @@ class Quiz extends Component<IQuizProps, IQuizState> {
                     elit semper auctor. Integer ac felis sed sem bibendum ornare non vel odio. Ut neque tortor,
                     bibendum ac aliquet vitae, congue lobortis mauris. Vivamus ut convallis odio. Ut quis lacinia
                     leo. Aliquam commodo accumsan lorem, vitae euismod quam rhoncus eu.</p>
+                <h2 className="title is-2">Gathering the Data</h2>
+                <p>The more data collected, the stronger and more reliable the information will be for researchers
+                    to study. For this reason, it is important to have as many participants as possible included in
+                    the Autoimmune Research Network (ARNet). NCAPG members and other interested parties who want to
+                    join ARNet are welcome to create their own webpage on their own website to
+                    encourage participation.</p>
+                <h2 className="title is-2">Using the data</h2>
+                <p>The data collected will be stored securely through Global Vision T echnologies.
+                    When researchers want access to the information, they will contact ARNet. From
+                    that point, AARDA or the participating group will work with the researchers
+                    to provide them with the data, regardless of which organization the patients went
+                    through to submit their data. The information will be used to gather patient experiences
+                    and help with autoimmune research. Researchers and companies may make a contribution
+                    to the charity for access to the information.</p>
+                <br />
+                <p>This is where you will be able to set up your preferences for granting and revoking
+                    access to third parties to share your data</p>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
                 <QuizFrame>
                     {editing === true ? this.editingMessage() : null}
                     <form onSubmit={this.handleSubmit}>

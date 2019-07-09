@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { UPortButton } from 'rimble-ui';
 import Cookies from 'universal-cookie';
+import ConsenSysLogo from './consensys_logo.png';
 
 
 interface IWelcomeProps {
@@ -45,7 +46,21 @@ class Welcome extends Component<IWelcomeProps, {}> {
      */
     public render() {
         return (<>
-            Welcome to ImmunoBlock
+            <img src={ConsenSysLogo} alt="consensys-logo" />
+            <h2 className="title is-2">Autoimmune Disease Registry</h2>
+            <p>
+                Welcome to the Global Autoimmune Tracking Repository
+            </p>
+            <p>
+                Created as part of the: Beyond Blockchain Hackathon.
+            </p>
+
+            <p>
+                Learn More
+            </p>
+            <p>
+                About The ProjectAbout Gitcoin
+            </p>
             <br />
             <UPortButton.Solid onClick={this.loginWithUPort}>Connect with uPort</UPortButton.Solid>
         </>);
