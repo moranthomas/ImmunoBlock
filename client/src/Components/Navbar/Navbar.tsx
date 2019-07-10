@@ -1,5 +1,6 @@
 import React, { Component, FunctionComponent } from 'react';
 import styled from 'styled-components';
+import Cookies from 'universal-cookie';
 
 import pinkHeart from './pink_heart.png';
 
@@ -14,6 +15,7 @@ const ImmunoName = styled.div`
 `;
 interface INavbarProps {
     uport: any;
+    cookies: Cookies;
 }
 interface INavbarState {
     burgerMenuActive: boolean;
@@ -44,10 +46,10 @@ class Navbar extends Component<INavbarProps, INavbarState> {
     }
 
     public handleLogout = (event: any) => {
-        const { uport } = this.props;
+        const { uport, cookies } = this.props;
         uport.logout();
-        // TODO: relaoad page
-        // TODO: clear cookie did
+        window.location.reload();
+        cookies.remove('did');
     }
 
     /**

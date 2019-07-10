@@ -80,10 +80,10 @@ class Main extends Component<{ match: { params: { patientdid: string } } }, IMai
      * @ignore
      */
     public render() {
-        const { uport, result } = this.state;
+        const { uport, result, cookies } = this.state;
         return (
             <>
-                <Navbar uport={uport} />
+                <Navbar uport={uport} cookies={cookies} />
                 <MainContent>
                     {JSON.stringify(result)}
                 </MainContent>

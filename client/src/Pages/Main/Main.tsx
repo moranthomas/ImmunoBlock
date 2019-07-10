@@ -116,7 +116,7 @@ class Main extends Component<{}, IMainState> {
         }
         return (
             <>
-                <Navbar uport={uport} />
+                <Navbar uport={uport} cookies={cookies} />
                 <MainContent>
                     {pageContent}
                 </MainContent>

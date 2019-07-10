@@ -35,6 +35,7 @@ class GrantAccess extends Component<IGrantAccessProps, IGrantAccessStatus> {
         registryQuizContract.methods.grantAccess(cookies.get('did'), grantAccessToDid)
             .send({ from: userAccount })
             .on('receipt', (receipt: any) => {
+                window.location.reload();
                 // TODO: print a success message
             })
             .on('error', console.error);
