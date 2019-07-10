@@ -41,7 +41,9 @@ class Main extends Component<{}, IMainState> {
         let loggedIn = false;
         uport.loadState();
         if (cookies.get('did') !== undefined) {
-            (window as any).ethereum.enable();
+            if (cookies.get('did') !== 'demo') {
+                (window as any).ethereum.enable();
+            }
             loggedIn = true;
         }
         this.state = {

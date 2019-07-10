@@ -61,7 +61,7 @@ class Navbar extends Component<INavbarProps, INavbarState> {
         return (<NavbarFrame>
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
-                    <a className="navbar-item" href="https://bulma.io">
+                    <a className="navbar-item" href="https://immunoblock.netlify.com/">
                         <img src={pinkHeart} height="28" alt="immunoblock pink heart" />
                         <ImmunoName>ImunnoBlock</ImmunoName>
                     </a>
@@ -97,15 +97,17 @@ class Navbar extends Component<INavbarProps, INavbarState> {
     }
 
     private renderAuth() {
-        const { uport } = this.props;
+        const { uport, cookies } = this.props;
         // load uport status from browser
         uport.loadState();
         const username = uport.state.name;
         // if the user is logged, say hello!
         if (username !== undefined) {
             return <div>Welcome, <strong onClick={this.tooglePopUpLogout}>{username}</strong></div>;
+        } else if (cookies.get('did') === 'demo') {
+            return <div>Welcome, <strong onClick={this.tooglePopUpLogout}>Demo</strong></div>;
         }
-    }
+     }
 }
 
 const Modal: FunctionComponent<{

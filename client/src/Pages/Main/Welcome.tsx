@@ -41,6 +41,13 @@ class Welcome extends Component<IWelcomeProps, {}> {
         event.preventDefault();
     }
 
+    public loginDemo = (event: any) => {
+        const { cookies } = this.props;
+        cookies.set('did', 'demo', { path: '/' });
+        window.location.reload();
+        event.preventDefault();
+    }
+
     /**
      * @ignore
      */
@@ -62,6 +69,9 @@ class Welcome extends Component<IWelcomeProps, {}> {
             </p>
             <br />
             <UPortButton.Solid onClick={this.loginWithUPort}>Connect with uPort</UPortButton.Solid>
+            <br />
+            <br />
+            <button className="button is-primary" onClick={this.loginDemo}>Try with demo account</button>
             <br />
             <br />
             <h2 className="title is-2">Learn More</h2>

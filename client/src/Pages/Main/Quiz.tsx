@@ -87,22 +87,24 @@ class Quiz extends Component<IQuizProps, IQuizState> {
         const { userAccount, registryQuizContract, cookies } = this.props;
         const { quizAnswers } = this.state;
         const did = cookies.get('did');
-        const jsonResult = {
-            answers: quizAnswers,
-            date: new Date(),
-        };
-        // add content to ipfs
-        const content = ipfsClient.Buffer.from(cryptr.encrypt(JSON.stringify(jsonResult)));
-        ipfs.add(content).then((results: [{ path: string }]) => {
-            // save the content address in ethereum
-            registryQuizContract.methods.uploadQuiz(did, cryptr.encrypt(results[0].path))
-                .send({ from: userAccount })
-                .on('receipt', (receipt: any) => {
-                    window.location.reload();
-                    // print a success message
-                })
-                .on('error', console.error);
-        });
+        if (did !== 'demo') {
+            const jsonResult = {
+                answers: quizAnswers,
+                date: new Date(),
+            };
+            // add content to ipfs
+            const content = ipfsClient.Buffer.from(cryptr.encrypt(JSON.stringify(jsonResult)));
+            ipfs.add(content).then((results: [{ path: string }]) => {
+                // save the content address in ethereum
+                registryQuizContract.methods.uploadQuiz(did, cryptr.encrypt(results[0].path))
+                    .send({ from: userAccount })
+                    .on('receipt', (receipt: any) => {
+                        window.location.reload();
+                        // print a success message
+                    })
+                    .on('error', console.error);
+            });
+        }
         event.preventDefault();
     }
 
@@ -111,6 +113,7 @@ class Quiz extends Component<IQuizProps, IQuizState> {
      */
     public render() {
         const { quizAnswers, editing } = this.state;
+        const { cookies } = this.props;
         return (
             <div>
                 <DisclaimerFrame>
@@ -360,7 +363,12 @@ class Quiz extends Component<IQuizProps, IQuizState> {
                         <br />
 
                         <div className="control">
-                            <input type="submit" className="button is-primary" value="Submit" />
+                            <input
+                                type="submit"
+                                className="button is-primary"
+                                disabled={cookies.get('did') === 'demo'}
+                                value="Submit"
+                            />
                         </div>
                     </form>
                 </QuizFrame>

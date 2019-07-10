@@ -46,6 +46,7 @@ class GrantAccess extends Component<IGrantAccessProps, IGrantAccessStatus> {
 
     public render() {
         const { grantAccessToDid } = this.state;
+        const { cookies } = this.props;
         return (
             <GrantAccessContent>
                 <form onSubmit={this.submitGrantAccess}>
@@ -62,7 +63,7 @@ class GrantAccess extends Component<IGrantAccessProps, IGrantAccessStatus> {
                         </div>
                     </div>
                     <div className="control">
-                        <input className="button is-primary" type="submit" />
+                        <input className="button is-primary" disabled={cookies.get('did') === 'demo'} type="submit" />
                     </div>
                 </form>
                 <br />
