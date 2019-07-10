@@ -48,17 +48,19 @@ class Quiz extends Component<IQuizProps, IQuizState> {
     public componentDidMount = () => {
         const { registryQuizContract, cookies } = this.props;
         const did = cookies.get('did');
-        registryQuizContract.methods.hasQuiz(did)
-            .call().then(async (has: boolean) => {
-                if (has === true) {
-                    const path = await registryQuizContract.methods.getQuiz(did).call();
-                    const quiz = await ipfs.cat(cryptr.decrypt(path));
-                    this.setState({
-                        editing: true,
-                        quizAnswers: JSON.parse(cryptr.decrypt(quiz.toString())).answers,
-                    });
-                }
-            });
+        if (did !== 'demo') {
+            registryQuizContract.methods.hasQuiz(did)
+                .call().then(async (has: boolean) => {
+                    if (has === true) {
+                        const path = await registryQuizContract.methods.getQuiz(did).call();
+                        const quiz = await ipfs.cat(cryptr.decrypt(path));
+                        this.setState({
+                            editing: true,
+                            quizAnswers: JSON.parse(cryptr.decrypt(quiz.toString())).answers,
+                        });
+                    }
+                });
+        }
     }
 
     public handleChange = (event: any) => {
