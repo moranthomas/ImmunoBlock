@@ -12,11 +12,13 @@ const ipfs = ipfsClient({
     protocol: process.env.REACT_APP_IPFS_PROTOCOL,
 });
 const QuizFrame = styled.div`
-    padding: 0% 25%;
+    @media (min-width: 1024px) {
+        padding: 0% 25%;
+    }
 `;
 const DisclaimerFrame = styled.div`
     @media (min-width: 1024px) {
-        max-width: 800px;
+        padding: 0% 10%;
     }
 `;
 
@@ -357,10 +359,8 @@ class Quiz extends Component<IQuizProps, IQuizState> {
                         </div>
                         <br />
 
-                        <div className="field is-grouped">
-                            <div className="control">
-                                <input type="submit" className="button is-primary" value="Submit" />
-                            </div>
+                        <div className="control">
+                            <input type="submit" className="button is-primary" value="Submit" />
                         </div>
                     </form>
                 </QuizFrame>

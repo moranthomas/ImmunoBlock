@@ -1,3 +1,23 @@
 table td {
     padding: 0% 1%;
 }
+
+div.control div.select, div.control select {
+    width: 100%;
+}
+
+div.control {
+    text-align: inherit;
+}
+
+.control label.radio {
+    width: 15%;
+}
+
+.control input[type="radio"] {
+    margin: 8%;
+}
+
+input[type="submit"] {
+    width: 35%;
+}
