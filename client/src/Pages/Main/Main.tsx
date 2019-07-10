@@ -44,7 +44,7 @@ class Main extends Component<{}, IMainState> {
         const cookies = new Cookies();
         const uport = getUport();
         const web3 = new Web3((window as any).ethereum);
-        let loggedIn = true;
+        let loggedIn = false;
         uport.loadState();
         if (cookies.get('did') !== undefined) {
             (window as any).ethereum.enable();
