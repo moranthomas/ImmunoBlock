@@ -4,7 +4,9 @@ import Cookies from 'universal-cookie';
 
 
 const GrantAccessContent = styled.div`
-    margin: 4% 20%;
+    @media (min-width: 1024px) {
+        margin: 4% 20%;
+    }
 `;
 interface IGrantAccessProps {
     uport: any;
@@ -48,7 +50,7 @@ class GrantAccess extends Component<IGrantAccessProps, IGrantAccessStatus> {
             <GrantAccessContent>
                 <form onSubmit={this.submitGrantAccess}>
                     <div className="field">
-                        <label className="label">Grant Access to</label>
+                        <h2 className="title is-2">Grant Access to</h2>
                         <div className="control">
                             <input
                                 className="input"
@@ -63,7 +65,12 @@ class GrantAccess extends Component<IGrantAccessProps, IGrantAccessStatus> {
                         <input className="button is-primary" type="submit" />
                     </div>
                 </form>
-                <h1 className="title">Access Granted</h1>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <h3 className="title is-3">Access Granted</h3>
                 <ul>
                     <li>Not available yet!</li>
                 </ul>

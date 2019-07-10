@@ -2,6 +2,16 @@ table td {
     padding: 0% 1%;
 }
 
+table tr {
+    display: inline-grid;
+}
+
+@media (min-width: 1024px) {
+    table tr {
+        display: inline-block;
+    }
+}
+
 div.control div.select, div.control select {
     width: 100%;
 }

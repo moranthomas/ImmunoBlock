@@ -7,18 +7,12 @@ import Navbar from '../../Components/Navbar/Navbar';
 import getUport from '../../utils/getUport';
 import './main.css';
 import Quiz from './Quiz';
-import BasicRadarChart from './Statistics';
+import Statistics from './Statistics';
 import Welcome from './Welcome';
 
 import RegistryQuiz from '../../contracts/RegistryQuiz.json';
 import GrantAccess from './GrantAccess';
 
-const TableTR = styled.div`
-display: grid;
-@media (min-width: 1024px) {
-    display: block;
-}
-`;
 const networkID: string = process.env.REACT_APP_NETWORK_ID === undefined ? '3' : process.env.REACT_APP_NETWORK_ID;
 const MainContent = styled.div`
     font-family: 'Maven Pro', sans-serif;
@@ -101,7 +95,7 @@ class Main extends Component<{}, IMainState> {
                     userAccount={userAccount}
                 />;
             } else if (currentView === 'statistics') {
-                pageContent = <BasicRadarChart />;
+                pageContent = <Statistics />;
             } else if (currentView === 'grantaccess') {
                 pageContent = <GrantAccess
                     cookies={cookies}
@@ -128,7 +122,7 @@ class Main extends Component<{}, IMainState> {
         return (
             <table>
                 <tbody>
-                    <TableTR>
+                    <tr>
                         <td data-tag="quiz" onClick={this.handleClick}>
                             <div className="card">
                                 <div className="card-image">
@@ -186,7 +180,7 @@ class Main extends Component<{}, IMainState> {
                                 </div>
                             </div>
                         </td>
-                    </TableTR>
+                    </tr>
                 </tbody>
             </table>
         );
