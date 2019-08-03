@@ -1,6 +1,6 @@
 pragma solidity ^0.5.7;
 
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "@openzeppelin/contracts/ownership/Ownable.sol";
 
 
 contract RegistryQuiz is Ownable {

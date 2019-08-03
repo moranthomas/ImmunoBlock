@@ -31,23 +31,23 @@
         "docs": "soldoc docs/ contracts"
     },
     "dependencies": {
-        "openzeppelin-solidity": "2.3.0"
+        "@openzeppelin/contracts": "2.3.0"
     },
     "devDependencies": {
         "bignumber.js": "9.0.0",
         "chai": "4.2.0",
-        "eslint": "5.16.0",
-        "eslint-config-airbnb": "17.1.0",
-        "eslint-plugin-import": "2.17.3",
-        "eslint-plugin-jsx-a11y": "6.2.1",
-        "eslint-plugin-react": "7.13.0",
-        "eth-gas-reporter": "0.2.0",
-        "ethlint": "1.2.1",
-        "ganache-cli": "6.4.4",
+        "eslint": "6.1.0",
+        "eslint-config-airbnb": "17.1.1",
+        "eslint-plugin-import": "2.18.2",
+        "eslint-plugin-jsx-a11y": "6.2.3",
+        "eslint-plugin-react": "7.14.3",
+        "eth-gas-reporter": "0.2.9",
+        "ethlint": "1.2.4",
+        "ganache-cli": "6.5.1",
         "girino": "0.0.1-alpha",
-        "soldoc": "0.1.0",
-        "solidity-coverage": "0.6.0-beta.5",
-        "truffle": "5.0.26",
-        "truffle-hdwallet-provider": "1.0.10"
+        "soldoc": "0.1.1",
+        "solidity-coverage": "0.6.4",
+        "truffle": "5.0.30",
+        "truffle-hdwallet-provider": "1.0.15"
     }
 }
