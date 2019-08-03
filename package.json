@@ -1,0 +1,24 @@
+{
+    "name": "ImmunoBlock",
+    "version": "0.1.0",
+    "description": "ImmunoBlock",
+    "scripts": {
+        "test": "lerna run test",
+        "coverage": "lerna run coverage",
+        "lint": "lerna run lint"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/HQ20/ImmunoBlock.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/HQ20/ImmunoBlock/issues"
+    },
+    "homepage": "https://github.com/HQ20/ImmunoBlock#readme",
+    "dependencies": {
+        "lerna": "3.16.4"
+    }
+}
